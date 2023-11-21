@@ -603,18 +603,16 @@ int search(int argc, char *argv[]) {
         }
     }
 	
+    double soma_idf = 0.0;
+    for(int j=0; j<nt; j++){
+        double idf;
+        idf = log(qtd_arquivos/(double)qtd_por_termo[j]);
+        if(soma_idf > 0) soma_idf = soma_idf * idf;
+        else soma_idf = soma_idf + idf;
+    }
 
-    printf("%d\n\n", qtd_arquivos);
     for(int i=0; i<qtd_arquivos; i++){
-        double soma_idf = 0.0;
-	for(int j=0; j<nt; j++){
-            double idf;
-            idf = log(qtd_arquivos/(double)qtd_por_termo[j]);
-            if(soma_idf > 0) soma_idf = soma_idf * idf;
-            else soma_idf = soma_idf + idf;
-        }
         array_tamanho[i]->tfidf = (array_tamanho[i]->qtd_termo * soma_idf)/nt;
-	soma_idf = 0.0;
     }
 	
     arvore = criar_nodo_arvore(argv[3], array_tamanho[0]->tfidf);
