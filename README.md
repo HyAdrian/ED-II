@@ -38,12 +38,15 @@ Exemplo:
 ./indexer.exe --search "termos de exemplo" documento1.txt documento2.txt...
 
 ## Descrição das Funcionalidades
-- **--freq:**
-O programa realiza a abertura do arquivo especificado e calcula dinamicamente o tamanho da tabela hash com base no tamanho do arquivo. Utilizando um buffer, o programa coleta partes do arquivo, as divide em palavras e, para cada palavra, a insere na tabela hash. É importante notar que, caso uma palavra já exista na tabela hash, o programa atualiza a contagem "qtd" dessa palavra no nó incrementando em +1. Após a conclusão da leitura do arquivo, o programa percorre a tabela hash e identifica as n palavras mais frequentes.
-- **--freq-word:**
+
+### --freq
+O programa realiza a abertura do arquivo especificado e calcula dinamicamente o tamanho da tabela hash com base no tamanho do arquivo. Utilizando um buffer, o programa coleta partes do arquivo, as divide em palavras e, para cada palavra, a insere na tabela hash. Caso uma palavra já exista na tabela hash, o programa atualiza a contagem "qtd" dessa palavra no nó incrementando em +1. Após a conclusão da leitura do arquivo, o programa percorre a tabela hash e identifica as *n* palavras mais frequentes.
+
+### --freq-word
 O programa abre o arquivo especificado e, utilizando um buffer, coleta partes do arquivo, as divide em palavras e, para cada palavra, compara-a com a palavra especificada no comando. Se a palavra no arquivo corresponder à palavra fornecida no comando, o programa atualiza o contador associado a essa palavra incrementando em +1. Ao final da leitura do arquivo, o programa exibe o contador na tela.
-- **--search:**
-O programa cria uma tabela hash para as palavras especificadas no termo. Em seguida, para cada arquivo, ele abre o arquivo e, utilizando um buffer, coleta partes do arquivo, as divide em palavras e, para cada palavra, busca na tabela hash do termo. Se a palavra estiver presente, o programa atualiza o contador qtd associado a essa palavra em +1. Após a leitura de cada arquivo, o programa calcula o Term Frequency (TF) de cada arquivo.
+
+### --search
+O programa cria uma tabela hash para as palavras especificadas no termo. Em seguida, para cada arquivo, ele abre o arquivo e, utilizando um buffer, coleta partes do arquivo, as divide em palavras e, para cada palavra, busca na tabela hash do termo. Se a palavra estiver presente, o programa atualiza o contador "qtd" associado a essa palavra em +1. Após a leitura de cada arquivo, o programa calcula o Term Frequency (TF) de cada arquivo.
 
 Posteriormente, após calcular o TF de todos os arquivos, o programa passa a calcular o Inverse Document Frequency (IDF) de cada arquivo. Em seguida, calcula o TF-IDF para cada documento. Cada documento, juntamente com seu respectivo TF-IDF, é inserido em uma árvore binária de busca.
 
