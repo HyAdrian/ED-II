@@ -26,7 +26,7 @@ typedef struct Nodo_Arvore {
 
 typedef struct Termo {
     char palavra[30];
-    unsigned int qtd;
+    int qtd;
     int nt;
     struct Termo *prox;
 } Termo;
@@ -295,6 +295,7 @@ void freq(char *arquivocmd, int num_palavras) {
     int hash;
     int tamanho = 0;
     tamanho = calcula_tamanho_definitivo(arquivocmd);
+    char leftover[1024];
     printf("Tamanho da tabela hash: %d\n", tamanho);
 
     const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789\0";
@@ -505,10 +506,12 @@ int search(int argc, char *argv[]) {
     int tamanho = prox_primo(qtd_arquivos / 4);
     int nt = 0;
     int *qtd_por_termo = NULL;
+    double soma_tf = 0.0;
     char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789";
     char *token = strtok(argv[2], delim);
     Nodo_Arvore *arvore = NULL;
     Termo **termo;
+    Termo *busca = NULL;
     termo = (Termo **)malloc(tamanho * sizeof(Termo *));
     Valores **array_tamanho = (Valores **)malloc(qtd_arquivos * sizeof(Valores *));
 
@@ -549,10 +552,12 @@ int search(int argc, char *argv[]) {
         qtd_por_termo[i] = 0;
     }
 
+    termo[0]->qtd--;
     for (int a = 3; a < argc; a++) {
         unsigned int contador_pal = 0;
         int fd = open(argv[a], O_RDONLY);
-        double soma_tf = 0.0;
+        soma_tf = 0.0;
+
 
         if (fd == -1) {
             perror("Error opening file");
@@ -568,39 +573,45 @@ int search(int argc, char *argv[]) {
             buffer[n] = '\0';
             char *rest = buffer;
             toLowerCase(rest);
-            Termo *busca;
 
-            for (ssize_t i = 0; i < n; i++) {
-                if (strchr(delim, buffer[i]) != NULL) {
-                    buffer[i] = '\0';
-                    int hash = string_hash(rest, tamanho);
-                    busca = busca_item_lista_termo(termo[hash], rest);
+            while (*rest != '\0') {
+                char *word = rest;
+                while (*rest != '\0' && !strchr(delim, *rest)) {
+                    rest++;
+                }
+
+                if (*rest != '\0') {
+                    *rest = '\0';
+                    rest++;
+                }
+
+                if (strlen(word) > 2) {
+                    int hash = string_hash(word, tamanho);
+                    busca = busca_item_lista_termo(termo[hash], word);
                     if (busca != NULL) {
                         busca->qtd++;
                     }
                     contador_pal++;
-                    rest = buffer + i + 1;
                 }
             }
         }
-
         close(fd);
 
         for (int i = 0; i < tamanho; i++) {
             Termo *p = termo[i];
-
             while (p != NULL) {
-                if(p->qtd>0){
+                if(p->qtd!=0){
                     qtd_por_termo[p->nt]++;
                     double tf = (double)p->qtd / contador_pal;
-                    if(soma_tf>0) soma_tf = soma_tf * tf;
+                    if(soma_tf>0.0) soma_tf = soma_tf * tf;
                     else soma_tf = soma_tf + tf;
                     p->qtd = 0;
                 }
                     p = p->prox;
             }
-            array_tamanho[a - 3]->qtd_termo = soma_tf;
         }
+        array_tamanho[a - 3]->qtd_termo = soma_tf;
+        contador_pal = 0;
     }
 
     double soma_idf = 0.0;
