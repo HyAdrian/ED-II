@@ -295,7 +295,6 @@ void freq(char *arquivocmd, int num_palavras) {
     int hash;
     int tamanho = 0;
     tamanho = calcula_tamanho_definitivo(arquivocmd);
-    char leftover[1024];
     printf("Tamanho da tabela hash: %d\n", tamanho);
 
     const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789\0";
