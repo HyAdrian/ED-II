@@ -19,24 +19,21 @@ gcc indexer.c -o indexer.exe
 
 ## Opções disponíveis
 
-- **--freq num_palavras:**
+- **--freq:**
 Conta a frequência das `num_palavras` palavras mais frequentes nos documentos fornecidos.
 
 Exemplo:
-./indexer.exe --freq 10 documento1.txt documento2.txt
+./indexer.exe --freq 10 documento1.txt
 
-- **--freq-word palavra:**
+- **--freq-word:**
 Conta a frequência da palavra específica nos documentos fornecidos.
 
 Exemplo:
-./indexer.exe --freq-word "exemplo" documento1.txt documento2.txt
+./indexer.exe --freq-word "exemplo" documento1.txt
 
-- **--search "termos" documento1.txt documento2.txt...**
+- **--search:**
 Realiza uma busca utilizando a técnica TF-IDF, considerando os documentos fornecidos e uma lista de termos.
 
 Exemplo:
-./indexer.exe --search "termos" documento1.txt documento2.txt...
-## Contribuições
-Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas (issues) ou enviar pull requests para melhorar este programa.
+./indexer.exe --search "termos de exemplo" documento1.txt documento2.txt...
 
-Obrigado por usar o Indexer!
