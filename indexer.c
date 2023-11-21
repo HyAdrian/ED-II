@@ -261,7 +261,7 @@ int calcula_tamanho_definitivo(char *nome_arquivo) {
     fclose(arquivo);
 
     num_palavras = (long)((tamanho_arquivo_kbytes * 170));
-    tamanho_inicial_tabela = (int)(num_palavras / 3);
+    tamanho_inicial_tabela = (int)(num_palavras / 4)*0.025;
     tamanho_tabela_primo = prox_primo(tamanho_inicial_tabela);
 
     return tamanho_tabela_primo;
@@ -295,6 +295,7 @@ void freq(char *arquivocmd, int num_palavras) {
     int hash;
     int tamanho = 0;
     tamanho = calcula_tamanho_definitivo(arquivocmd);
+    char leftover[1024];
     printf("Tamanho da tabela hash: %d\n", tamanho);
 
     const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789\0";
@@ -602,7 +603,7 @@ int search(int argc, char *argv[]) {
             array_tamanho[a - 3]->qtd_termo = soma_tf;
         }
     }
-	
+
     double soma_idf = 0.0;
     for(int j=0; j<nt; j++){
         double idf;
@@ -614,7 +615,7 @@ int search(int argc, char *argv[]) {
     for(int i=0; i<qtd_arquivos; i++){
         array_tamanho[i]->tfidf = (array_tamanho[i]->qtd_termo * soma_idf)/nt;
     }
-	
+
     arvore = criar_nodo_arvore(argv[3], array_tamanho[0]->tfidf);
 
     for(int i=1; i<qtd_arquivos; i++){
