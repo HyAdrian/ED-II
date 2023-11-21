@@ -261,7 +261,7 @@ int calcula_tamanho_definitivo(char *nome_arquivo) {
     fclose(arquivo);
 
     num_palavras = (long)((tamanho_arquivo_kbytes * 170));
-    tamanho_inicial_tabela = (int)(num_palavras / 4)*0.025;
+    tamanho_inicial_tabela = (int)(num_palavras / 4)*0.05;
     tamanho_tabela_primo = prox_primo(tamanho_inicial_tabela);
 
     return tamanho_tabela_primo;
@@ -297,7 +297,7 @@ void freq(char *arquivocmd, int num_palavras) {
     tamanho = calcula_tamanho_definitivo(arquivocmd);
     printf("Tamanho da tabela hash: %d\n", tamanho);
 
-    const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789\0";
+    const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789";
     char buffer[1024*1024];
 
     Nodo **tabela, **palavras; // ARRAY DE PONTEIROS DE NODOS / TABELA HASH
@@ -349,12 +349,12 @@ void freq(char *arquivocmd, int num_palavras) {
 
     Nodo *maiores = encontrar_maiores(tabela, tamanho, qtd_palavras);
     exibe_lista(maiores);
-  
 
-   for(int i = 0; i< qtd_palavras; i++){ 
+
+   for(int i = 0; i< qtd_palavras; i++){
     	liberar_lista(tabela[i]);
    }
-   
+
     free(tabela);
 
     free(palavras);
@@ -375,7 +375,7 @@ int freq_word(char *palavra, char *arquivocmd)
     int fd = open(arquivocmd, O_RDONLY);
     char *palavra_busca = palavra;
     char buffer[1024*1024];
-    const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789\0"; // DELIMITADORES
+    const char delim[] = " !\"#$%&'()*\"\'+,-./:;<=>?@[\\]^_`{|}~\v\t\n\r0123456789"; // DELIMITADORES
     ssize_t n;
 
     if (fd == -1) {
@@ -600,7 +600,6 @@ int search(int argc, char *argv[]) {
                 p = p->prox;
             }
         }
-
         array_tamanho[a - 3]->qtd_termo = soma_tf;
     }
 

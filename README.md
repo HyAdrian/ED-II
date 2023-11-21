@@ -12,7 +12,7 @@ Este é um programa em C que realiza operações de indexação e busca em docum
 
 1. **Clone o repositório na sua máquina:**
 2. **Compile o arquivo:**
-`gcc indexer.c -o indexer.exe -lm`
+`gcc indexer.c -o indexer -lm`
 
 3. **Execute o programa:**
 ./indexer.exe [opções] [arquivo1.txt arquivo2.txt ...]
