@@ -31,11 +31,11 @@ Conta a frequência da palavra específica nos documentos fornecidos.
 Exemplo:
 ./indexer.exe --freq-word "exemplo" documento1.txt documento2.txt
 
-- **--search stopwords.txt documento1.txt documento2.txt ...:**
-Realiza uma busca utilizando a técnica TF-IDF, considerando os documentos fornecidos e uma lista de stopwords.
+- **--search "termos" documento1.txt documento2.txt...**
+Realiza uma busca utilizando a técnica TF-IDF, considerando os documentos fornecidos e uma lista de termos.
 
 Exemplo:
-./indexer.exe --search stopwords.txt documento1.txt documento2.txt
+./indexer.exe --search "termos" documento1.txt documento2.txt...
 ## Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas (issues) ou enviar pull requests para melhorar este programa.
 
