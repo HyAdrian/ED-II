@@ -593,6 +593,7 @@ int search(int argc, char *argv[]) {
                 if(p->qtd>0){
                     qtd_por_termo[p->nt]++;
                     double tf = (double)p->qtd / contador_pal;
+		    printf("tf: %.30f\n", tf);
                     if(soma_tf>0) soma_tf = soma_tf * tf;
                     else soma_tf = soma_tf + tf;
                     p->qtd = 0;
@@ -601,20 +602,26 @@ int search(int argc, char *argv[]) {
             }
             array_tamanho[a - 3]->qtd_termo = soma_tf;
         }
+	printf("soma_tf: %.30f\n", soma_tf);
     }
+	
 
-    double soma_idf = 0.0;
+    printf("%d\n\n", qtd_arquivos);
     for(int i=0; i<qtd_arquivos; i++){
-        for(int j=0; j<nt; j++){
+        double soma_idf = 0.0;
+	for(int j=0; j<nt; j++){
             double idf;
-            idf = log(qtd_arquivos)/qtd_por_termo[j];
+            idf = log(qtd_arquivos/(double)qtd_por_termo[j]);
+	    printf("idf: %.30f\n", idf);
             if(soma_idf > 0) soma_idf = soma_idf * idf;
             else soma_idf = soma_idf + idf;
         }
         array_tamanho[i]->tfidf = (array_tamanho[i]->qtd_termo * soma_idf)/nt;
-        soma_idf = 0.0;
+        printf("soma_idf: %.30f\n", soma_idf);
+	printf("tfidf: %.30f\n", array_tamanho[i]->tfidf);
+	soma_idf = 0.0;
     }
-
+	
     arvore = criar_nodo_arvore(argv[3], array_tamanho[0]->tfidf);
 
     for(int i=1; i<qtd_arquivos; i++){
