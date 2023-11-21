@@ -50,6 +50,6 @@ O programa cria uma tabela hash para as palavras especificadas no termo. Em segu
 
 Posteriormente, após calcular o TF de todos os arquivos, o programa passa a calcular o Inverse Document Frequency (IDF) de cada arquivo. Em seguida, calcula o TF-IDF para cada documento. Cada documento, juntamente com seu respectivo TF-IDF, é inserido em uma árvore binária de busca.
 
-É importante observar que, no caso de termos compostos por mais de uma palavra, o programa calcula a média dos TF-IDF de cada palavra no arquivo, utilizando uma regra matemática. Esta regra consiste em multiplicar os numeradores e denominadores das frações associadas a cada palavra para obter o mesmo resultado.
+É importante observar que, no caso de termos compostos por mais de uma palavra, o programa calcula a média dos TF-IDF de cada palavra no arquivo.
 
 Finalmente, o programa imprime na tela os arquivos que possuem maior relevância em relação ao termo, ordenados de forma decrescente com base nos valores de TF-IDF.
