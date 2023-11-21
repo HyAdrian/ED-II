@@ -12,7 +12,7 @@
 // ================  STRUCT LISTA LIGADA / NODO E FUNÇÕES ==================================
 typedef struct Nodo {
     char palavra[30];
-    int qtd;
+    unsigned int qtd;
     struct Nodo *prox;
 } Nodo;
 
@@ -261,7 +261,7 @@ int calcula_tamanho_definitivo(char *nome_arquivo) {
     fclose(arquivo);
 
     num_palavras = (long)((tamanho_arquivo_kbytes * 170));
-    tamanho_inicial_tabela = (int)(num_palavras / 4)*0.025;
+    tamanho_inicial_tabela = (int)(num_palavras / 4)*0.05;
     tamanho_tabela_primo = prox_primo(tamanho_inicial_tabela);
 
     return tamanho_tabela_primo;
@@ -274,7 +274,7 @@ int string_hash(char *s, int m) {
     unsigned int hash_value = 0;
 
     while ((c = *s++)) {
-        hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+        hash_value = (hash_value + (c + 1) * p_pow) % m;
         p_pow = (p_pow * p) % m;
     }
     return (hash_value);
