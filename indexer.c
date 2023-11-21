@@ -404,7 +404,7 @@ int freq_word(char *palavra, char *arquivocmd)
     }
 
     close(fd);
-    printf("%s: %d", palavra_busca, contador);
+    printf("%s: %d\n", palavra_busca, contador);
 
     return 0;
 }
